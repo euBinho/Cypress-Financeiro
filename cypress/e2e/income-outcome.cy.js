@@ -54,7 +54,7 @@ describe('Income and Outcome', () => {
 
   it.skip('Shoud validate the balancete download', () => {
     cy.get('.d-flex > .btn-outline-primary').click();
-
+    //todo add download validation
     const hoje = new Date();
     const diaAtual = hoje.getDate();
     const mesAtual = hoje.getMonth() + 1;
@@ -74,7 +74,7 @@ describe('Income and Outcome', () => {
     }${mesMesAtras}-${anoMesAtras}`;
 
     cy.readFile(
-      `cypress/Downloads/Balanço ${dataAtualFormatada} à ${dataMesAtrasFormatada}.xlsx`
+      `cypress/downloads/Balanço ${dataAtualFormatada} à ${dataMesAtrasFormatada}.xlsx`
     );
   });
 

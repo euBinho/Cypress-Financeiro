@@ -12,7 +12,7 @@ describe('Summary - Success test cases ', () => {
     cy.get(':nth-child(11) > #TDD-menu-store').click();
   });
 
-  it('❌ Should add a new income', () => {
+  it('Should add a new income', () => {
     cy.get(':nth-child(1) > .card > .card-body > .btn').click();
     cy.get('.input-group-text').click();
     cy.get('.ngb-dp-today > .btn-light').click();
@@ -58,7 +58,7 @@ describe('Summary - Success test cases ', () => {
     ).click();
   });
 
-  it('❌ Should add a new outcome', () => {
+  it('Should add a new outcome', () => {
     cy.get(':nth-child(2) > .card > .card-body > .btn').click();
     cy.get('.input-group-text').click();
     cy.get('.ngb-dp-today > .btn-light').click();
@@ -119,7 +119,7 @@ describe('Summary - Success test cases ', () => {
     cy.get('#incoming').click();
   });
 
-  it.skip('❌ Should open the print preview of the financial information', () => {
+  it.skip('Should open the print preview of the financial information', () => {
     cy.get(
       'app-sub-header-actions-financial > .d-flex > div > .btn-outline-primary'
     ).click();
