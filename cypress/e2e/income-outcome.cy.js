@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Income and Outcome - Success test cases ', () => {
+describe('Income and Outcome', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -13,7 +13,7 @@ describe('Income and Outcome - Success test cases ', () => {
     cy.get(':nth-child(2) > .nav-link').click();
   });
 
-  it('❌ Should populate the incomes and outcomes', () => {
+  it('⚡ Should populate the incomes and outcomes', () => {
     cy.get('.d-flex > .btn-primary').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
     cy.get('.input-group-text').click();
@@ -74,13 +74,28 @@ describe('Income and Outcome - Success test cases ', () => {
     }${mesMesAtras}-${anoMesAtras}`;
 
     cy.readFile(
-      `cypress\\Downloads\\Balanço ${dataAtualFormatada} à ${dataMesAtrasFormatada}.xlsx`
+      `cypress/Downloads/Balanço ${dataAtualFormatada} à ${dataMesAtrasFormatada}.xlsx`
     );
   });
 
   it('Should use the search bar to search a specific income/outcome', () => {
-    cy.get('.input-group > .form-control').type('Consulta Urgente');
+    cy.get('.input-group > .form-control').type('Consulta');
+    cy.get('tbody > :nth-child(2) > :nth-child(1)').should(
+      'have.text',
+      'Consulta'
+    );
+  });
+
+  it('⚡ Should remove the populated data', () => {
+    cy.get(':nth-child(6) > .btn').click();
+    cy.get('.me-4 > .btn').click();
+    cy.get('app-confirmation').should('be.visible');
+    cy.get('.d-flex > h2').should(
+      'have.text',
+      'Deseja realmente excluir esta transação?'
+    );
+    cy.get(
+      'app-confirmation > .modal-footer > .d-flex > :nth-child(2) > .btn'
+    ).click();
   });
 });
-
-describe('Summary - Fail test cases ', () => {});
