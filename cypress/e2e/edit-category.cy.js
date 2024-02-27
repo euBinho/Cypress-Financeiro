@@ -76,7 +76,7 @@ describe('Edit Category - Success test cases', () => {
   });
 });
 
-describe('Edit Category - Success test cases', () => {
+describe('Edit Category - Fail test cases', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
