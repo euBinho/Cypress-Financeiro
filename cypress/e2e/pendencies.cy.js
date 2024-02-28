@@ -22,33 +22,47 @@ describe('Pendencies: Delayed incomes - Success test cases ', () => {
     ).click();
     cy.get('#expenseName').type('Jalecos novos');
     cy.get('#categorySearch').click();
-    cy.get('#ngb-typeahead-0-0').click();
-    cy.get('#valueExpense').type('19999');
-    //todo vaidate payment options
+    cy.get('#ngb-typeahead-0-1').click();
+    cy.get('.w-100 > #typeahead-focus').click();
+    cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
+    cy.get('#valueExpense').type('5000');
+    cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
+    cy.get(
+      '.d-flex > .ng-select-container > .ng-value-container > .ng-input'
+    ).click();
+    cy.get('.d-flex > .ng-select-container').type('Pix{enter}');
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(1) > .form-control'
     ).type(faker.finance.accountNumber());
-    //todo add image
-    //todo add index
+    cy.get(
+      ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
+    ).type(faker.string.numeric({ length: 9 }));
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 
   it('Should edit a delayed income', () => {
     cy.get('.pt-1 > .btn').click();
     cy.get('#expenseName').clear().type('Jalecos para nova contratação');
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 
   it('Should filter by date and search a delayed income', () => {
     cy.get('.date-width > .form-control').click();
     cy.get(
-      '[aria-label="domingo, 25 de janeiro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 25 de janeiro de 2024"] > .custom-day'
     ).click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
     cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 29 de fevereiro de 2024"] > .custom-day'
     ).click();
 
     cy.get('.input-group > .form-control').type(
@@ -74,8 +88,15 @@ describe('Pendencies: Delayed incomes - Success test cases ', () => {
   });
 
   it('Should download the delayed incomes', () => {
-    //todo validate the file download
-    cy.get('.d-flex > .btn-outline-primary');
+    cy.get('.d-flex > .btn-outline-primary').click();
+    cy.task('listFiles', 'cypress/downloads').then((files) => {
+      const downloadedFileName = files[0];
+      const filePath = `cypress/downloads/${downloadedFileName}`;
+
+      cy.task('fileExists', filePath).then((fileExists) => {
+        expect(fileExists).to.be.true;
+      });
+    });
   });
 });
 
@@ -137,33 +158,47 @@ describe('Pendencies: Delayed outcomes - Success test cases ', () => {
     ).click();
     cy.get('#expenseName').type('Jalecos novos');
     cy.get('#categorySearch').click();
-    cy.get('#ngb-typeahead-0-0').click();
-    cy.get('#valueExpense').type('19999');
-    //todo vaidate payment options
+    cy.get('#ngb-typeahead-0-1').click();
+    cy.get('.w-100 > #typeahead-focus').click();
+    cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
+    cy.get('#valueExpense').type('5000');
+    cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
+    cy.get(
+      '.d-flex > .ng-select-container > .ng-value-container > .ng-input'
+    ).click();
+    cy.get('.d-flex > .ng-select-container').type('Pix{enter}');
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(1) > .form-control'
     ).type(faker.finance.accountNumber());
-    //todo add image
-    //todo add index
+    cy.get(
+      ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
+    ).type(faker.string.numeric({ length: 9 }));
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
   });
 
   it('Should edit a delayed outcome', () => {
-    cy.get('.pt-1 > .btn').click();
+    cy.get('.pt-1 > .btn').click().wait(1000);
     cy.get('#expenseName').clear().type('Jalecos para nova contratação');
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
   });
 
-  it('Should filter by date and search a delayed outcome', () => {
+  it('Should filter by date and search a delayed income', () => {
     cy.get('.date-width > .form-control').click();
     cy.get(
-      '[aria-label="domingo, 25 de janeiro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 25 de janeiro de 2024"] > .custom-day'
     ).click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
     cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 29 de fevereiro de 2024"] > .custom-day'
     ).click();
 
     cy.get('.input-group > .form-control').type(
@@ -189,7 +224,15 @@ describe('Pendencies: Delayed outcomes - Success test cases ', () => {
   });
 
   it('Should download the delayed outcomes', () => {
-    //todo validate the file download
+    cy.get('.d-flex > .btn-outline-primary').click();
+    cy.task('listFiles', 'cypress/downloads').then((files) => {
+      const downloadedFileName = files[0];
+      const filePath = `cypress/downloads/${downloadedFileName}`;
+
+      cy.task('fileExists', filePath).then((fileExists) => {
+        expect(fileExists).to.be.true;
+      });
+    });
     cy.get('.d-flex > .btn-outline-primary');
   });
 });
@@ -230,7 +273,7 @@ describe('Pendencies: Delayed outcomes - Fail test cases', () => {
   });
 });
 
-describe.only('Pendencies: Future incomes - Success test cases ', () => {
+describe('Pendencies: Future incomes - Success test cases ', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -247,43 +290,50 @@ describe.only('Pendencies: Future incomes - Success test cases ', () => {
   it('Should create a future income', () => {
     cy.get('.btn-success').click();
     cy.get('.input-group-text').click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
     cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .btn-light'
+      '[aria-label="terça-feira, 26 de março de 2024"] > .btn-light'
     ).click();
     cy.get('#expenseName').type('Jalecos novos');
     cy.get('#categorySearch').click();
-    cy.get('#ngb-typeahead-0-0').click();
-    cy.get('#valueExpense').type('19999');
-    //todo vaidate payment options
+    cy.get('#ngb-typeahead-0-1').click();
+    cy.get('.w-100 > #typeahead-focus').click();
+    cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
+    cy.get('#valueExpense').type('5000');
+    cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
+    cy.get(
+      '.d-flex > .ng-select-container > .ng-value-container > .ng-input'
+    ).click();
+    cy.get('.d-flex > .ng-select-container').type('Pix{enter}');
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(1) > .form-control'
     ).type(faker.finance.accountNumber());
-    //todo add image
-    //todo add index
+    cy.get(
+      ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
+    ).type(faker.string.numeric({ length: 9 }));
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should('have.text', 'Receita salva com sucesso!');
+    cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 
   it('Should edit a future income', () => {
-    cy.get('.pt-1 > .btn').click();
+    cy.get('.pt-1 > .btn').click().wait(1000);
     cy.get('#expenseName').clear().type('Jalecos para nova contratação');
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
   });
 
   it('Should filter by date and search a future income', () => {
     cy.get('.date-width > .form-control').click();
+    cy.get('.ngb-dp-today > .custom-day').click();
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
     cy.get(
-      '[aria-label="domingo, 25 de janeiro de 2024"] > .custom-day'
-    ).click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
-    cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 28 de março de 2024"] > .custom-day'
     ).click();
 
     cy.get('.input-group > .form-control').type(
@@ -293,6 +343,11 @@ describe.only('Pendencies: Future incomes - Success test cases ', () => {
       'have.text',
       'Jalecos para nova contratação'
     );
+  });
+
+  it("Should mark the payment as 'Pago'", () => {
+    cy.get('#flexCheckDefault1').click();
+    cy.contains('div', 'Salvo com sucesso').should('be.visible');
   });
 
   it('Should remove a future income', () => {
@@ -309,12 +364,19 @@ describe.only('Pendencies: Future incomes - Success test cases ', () => {
   });
 
   it('Should download the future incomes', () => {
-    //todo validate the file download
-    cy.get('.d-flex > .btn-outline-primary');
+    cy.get('.d-flex > .btn-outline-primary').click();
+    cy.task('listFiles', 'cypress/downloads').then((files) => {
+      const downloadedFileName = files[0];
+      const filePath = `cypress/downloads/${downloadedFileName}`;
+
+      cy.task('fileExists', filePath).then((fileExists) => {
+        expect(fileExists).to.be.true;
+      });
+    });
   });
 });
 
-describe.only('Pendencies: Future incomes - Fail test cases', () => {
+describe('Pendencies: Future incomes - Fail test cases', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -350,7 +412,7 @@ describe.only('Pendencies: Future incomes - Fail test cases', () => {
   });
 });
 
-describe.only('Pendencies: Future outcomes - Success test cases ', () => {
+describe('Pendencies: Future outcomes - Success test cases ', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -361,49 +423,54 @@ describe.only('Pendencies: Future outcomes - Success test cases ', () => {
     cy.login(loginData);
     cy.get(':nth-child(11) > #TDD-menu-store').click();
     cy.get(':nth-child(3) > .nav-link').click();
-    cy.get(':nth-child(6) > .d-flex > .nav-link').click();
+    cy.get('.nav > :nth-child(7) > .d-flex').click();
   });
 
   it('Should create a future outcome', () => {
     cy.get('.btn-danger').click();
     cy.get('.input-group-text').click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
-    cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .btn-light'
-    ).click();
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
+    cy.get('[aria-label="quinta-feira, 28 de março de 2024"]').click();
     cy.get('#expenseName').type('Jalecos novos');
     cy.get('#categorySearch').click();
-    cy.get('#ngb-typeahead-0-0').click();
-    cy.get('#valueExpense').type('19999');
-    //todo vaidate payment options
+    cy.get('#ngb-typeahead-0-1').click();
+    cy.get('.w-100 > #typeahead-focus').click();
+    cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
+    cy.get('#valueExpense').type('5000');
+    cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
+    cy.get(
+      '.d-flex > .ng-select-container > .ng-value-container > .ng-input'
+    ).click();
+    cy.get('.d-flex > .ng-select-container').type('Pix{enter}');
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(1) > .form-control'
     ).type(faker.finance.accountNumber());
-    //todo add image
-    //todo add index
+    cy.get(
+      ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
+    ).type(faker.string.numeric({ length: 9 }));
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should('have.text', 'Receita salva com sucesso!');
+    cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
   });
 
   it('Should edit a future outcome', () => {
-    cy.get('.pt-1 > .btn').click();
+    cy.get('.pt-1 > .btn').click().wait(1000);
     cy.get('#expenseName').clear().type('Jalecos para nova contratação');
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
   });
 
-  it('Should filter by date and search a future outcome', () => {
+  it('Should filter by date and search a future income', () => {
     cy.get('.date-width > .form-control').click();
+    cy.get('.ngb-dp-today > .custom-day').click();
+    cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
     cy.get(
-      '[aria-label="domingo, 25 de janeiro de 2024"] > .custom-day'
-    ).click();
-    for (let i = 0; i <= 10; i++) {
-      cy.get('.right > .btn > .ngb-dp-navigation-chevron').click();
-    }
-    cy.get(
-      '[aria-label="terça-feira, 31 de dezembro de 2024"] > .custom-day'
+      '[aria-label="quinta-feira, 28 de março de 2024"] > .custom-day'
     ).click();
 
     cy.get('.input-group > .form-control').type(
@@ -413,6 +480,11 @@ describe.only('Pendencies: Future outcomes - Success test cases ', () => {
       'have.text',
       'Jalecos para nova contratação'
     );
+  });
+
+  it("Should mark the payment as 'Pago'", () => {
+    cy.get('#flexCheckDefault1').click();
+    cy.contains('div', 'Salvo com sucesso').should('be.visible');
   });
 
   it('Should remove a future outcome', () => {
@@ -429,12 +501,19 @@ describe.only('Pendencies: Future outcomes - Success test cases ', () => {
   });
 
   it('Should download the future outcome', () => {
-    //todo validate the file download
-    cy.get('.d-flex > .btn-outline-primary');
+    cy.get('.d-flex > .btn-outline-primary').click();
+    cy.task('listFiles', 'cypress/downloads').then((files) => {
+      const downloadedFileName = files[0];
+      const filePath = `cypress/downloads/${downloadedFileName}`;
+
+      cy.task('fileExists', filePath).then((fileExists) => {
+        expect(fileExists).to.be.true;
+      });
+    });
   });
 });
 
-describe.only('Pendencies: Future outcomes - Fail test cases', () => {
+describe('Pendencies: Future outcomes - Fail test cases', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -445,7 +524,7 @@ describe.only('Pendencies: Future outcomes - Fail test cases', () => {
     cy.login(loginData);
     cy.get(':nth-child(11) > #TDD-menu-store').click();
     cy.get(':nth-child(3) > .nav-link').click();
-    cy.get(':nth-child(6) > .d-flex > .nav-link').click();
+    cy.get('.nav > :nth-child(7) > .d-flex').click();
   });
 
   it('Should not allow to create a future outcome until the required fields are filled in', () => {

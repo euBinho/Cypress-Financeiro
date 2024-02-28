@@ -18,10 +18,8 @@ describe('Edit Category - Success test cases', () => {
     cy.get(':nth-child(5) > .d-flex > .color').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
 
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should(
-      'have.text',
-      'Categoria cadastrada com sucesso!'
+    cy.contains('div', 'Categoria cadastrada com sucesso!').should(
+      'be.visible'
     );
   });
 
@@ -42,10 +40,8 @@ describe('Edit Category - Success test cases', () => {
     cy.get(':nth-child(6) > .d-flex > .color').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
 
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should(
-      'have.text',
-      'Categoria atualizada com sucesso!'
+    cy.contains('div', 'Categoria atualizada com sucesso!').should(
+      'be.visible'
     );
   });
 
@@ -60,11 +56,7 @@ describe('Edit Category - Success test cases', () => {
     );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
 
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should(
-      'have.text',
-      'Categoria excluída com sucesso!'
-    );
+    cy.contains('div', 'Categoria excluída com sucesso!').should('be.visible');
   });
 
   it('Should search for a category', () => {
@@ -96,8 +88,8 @@ describe('Edit Category - Fail test cases', () => {
       'have.text',
       ' Campo Obrigatório '
     );
-    cy.get('.toast-body')
-      .should('be.visible')
-      .should('have.text', 'Preencha os campos antes de continuar!');
+    cy.contains('div', 'Preencha os campos antes de continuar!').should(
+      'be.visible'
+    );
   });
 });

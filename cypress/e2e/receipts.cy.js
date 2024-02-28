@@ -118,7 +118,7 @@ describe('Receipts: History', () => {
 
   it('Should order and search a receipt', () => {
     cy.get('.ng-select-container').click();
-    cy.contains('div.ng-options > span', 'Pagador').click();
+    cy.get('.ng-select-container').type('Valor').type('{enter}');
     cy.get('.input-group > .form-control').type('Pedro Nieto');
     cy.get('tbody > :nth-child(2) > :nth-child(1)').should(
       'have.text',

@@ -20,28 +20,36 @@ describe('Summary - Success test cases ', () => {
     cy.get('#categorySearch').type('Consultas');
     cy.get('.w-100 > #typeahead-focus').click();
     cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
     cy.get('#valueExpense').type('5000');
     cy.get('#radio1').click();
     cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
     cy.get(
       '.d-flex > .ng-select-container > .ng-value-container > .ng-input'
     ).click();
-    //todo select payment method
+    cy.get('.d-flex > .ng-select-container').type('Pix').type('{enter}');
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(1) > .form-control'
     ).type(faker.finance.accountNumber());
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
     ).type(faker.string.numeric({ length: 9 }));
-    //todo select file for image
-    //todo select file for attachment
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
 
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should('have.text', 'Receita salva com sucesso!');
+    cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 
   it('Should validate the income card value', () => {
+    cy.get(':nth-child(1) > .card > .card-body > h2.card-title').should(
+      'have.text',
+      'Receitas do Mês'
+    );
     cy.get(':nth-child(1) > .card > .card-body > .card-text').should(
       'have.text',
       'R$ 50,00 '
@@ -66,6 +74,9 @@ describe('Summary - Success test cases ', () => {
     cy.get('#categorySearch').type('Consultas');
     cy.get('.w-100 > #typeahead-focus').click();
     cy.get('ngb-highlight').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Consulta')
+      .type('{enter}');
     cy.get('#valueExpense').type('5000');
     cy.get('#radio1').click();
     cy.get(':nth-child(2) > .row > :nth-child(3) > .form-control').type('0');
@@ -78,15 +89,34 @@ describe('Summary - Success test cases ', () => {
     cy.get(
       ':nth-child(3) > :nth-child(1) > :nth-child(2) > .form-control'
     ).type(faker.string.numeric({ length: 9 }));
+    cy.get(':nth-child(1) > div.d-flex > .mb-3 > input').selectFile(
+      'cypress/fixtures/img1.png',
+      { force: true }
+    );
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
-    cy.get('.toast-body').should('be.visible');
-    cy.get('.toast-body').should('have.text', 'Despesa salva com sucesso!');
+    cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
   });
 
   it('Should validate the outcome card value', () => {
+    cy.get(':nth-child(2) > .card > .card-body > h2.card-title').should(
+      'have.text',
+      'Despesas do Mês'
+    );
     cy.get(':nth-child(2) > .card > .card-body > .card-text').should(
       'have.text',
       'R$ 50,00 '
+    );
+  });
+
+  it("Should switch the cards view mode from 'Month' to 'Year'", () => {
+    cy.get('[for="opt2"]').click();
+    cy.get(':nth-child(1) > .card > .card-body > h2.card-title').should(
+      'have.text',
+      'Receitas do Ano'
+    );
+    cy.get(':nth-child(2) > .card > .card-body > h2.card-title').should(
+      'have.text',
+      'Despesas do Ano'
     );
   });
 
@@ -119,10 +149,14 @@ describe('Summary - Success test cases ', () => {
     cy.get('#incoming').click();
   });
 
-  it.skip('Should open the print preview of the financial information', () => {
+  it('Should open the print preview of the financial information', () => {
     cy.get(
       'app-sub-header-actions-financial > .d-flex > div > .btn-outline-primary'
     ).click();
+    cy.window().then((win) => {
+      cy.stub(win, 'open').as('windowOpen');
+      cy.get('@windowOpen').should('be.calledOnce');
+    });
   });
 });
 
