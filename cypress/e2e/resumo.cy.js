@@ -41,7 +41,7 @@ describe.only('Resumo - Casos de teste', () => {
       { force: true }
     );
 
-    cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click().wait(1000);
     cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 

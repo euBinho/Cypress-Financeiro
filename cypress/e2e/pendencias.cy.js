@@ -705,18 +705,4 @@ describe('Limpeza do teste', () => {
     cy.get(':nth-child(11) > #TDD-menu-store').click();
     cy.get(':nth-child(2) > .nav-link').click();
   });
-
-  //todo limpar dados pós testes
-  // it('Limpa os dados do teste', () => {
-  //   cy.get(':nth-child(6) > .btn').click({ multiple: true });
-  //   cy.get('.me-4 > .btn').click();
-  //   cy.get('app-confirmation').should('be.visible');
-  //   cy.get('.d-flex > h2').should(
-  //     'have.text',
-  //     'Deseja realmente excluir esta transação?'
-  //   );
-  //   cy.get(
-  //     'app-confirmation > .modal-footer > .d-flex > :nth-child(2) > .btn'
-  //   ).click();
-  // });
 });
