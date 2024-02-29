@@ -1,4 +1,4 @@
-describe('Edit Category - Success test cases', () => {
+describe('Editar categorias - Casos de teste', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -11,7 +11,7 @@ describe('Edit Category - Success test cases', () => {
     cy.get(':nth-child(8) > .nav-link').click();
   });
 
-  it('Should create a new category', () => {
+  it('Adição de uma categoria', () => {
     cy.get('.ml-auto > .btn').click();
     cy.get('#categorySearch').type('Retornos');
     cy.get('.col-1 > .color-picker').click();
@@ -23,7 +23,7 @@ describe('Edit Category - Success test cases', () => {
     );
   });
 
-  it('Should edit a new category', () => {
+  it('Edição de uma categoria', () => {
     cy.get(
       ':nth-child(3) > :nth-child(3) > .d-flex > :nth-child(2) > .btn'
     ).click();
@@ -45,7 +45,7 @@ describe('Edit Category - Success test cases', () => {
     );
   });
 
-  it('Should delete a category', () => {
+  it('Exclusão de uma categoria', () => {
     cy.get(
       ':nth-child(3) > :nth-child(3) > .d-flex > :nth-child(1) > .btn'
     ).click();
@@ -59,7 +59,7 @@ describe('Edit Category - Success test cases', () => {
     cy.contains('div', 'Categoria excluída com sucesso!').should('be.visible');
   });
 
-  it('Should search for a category', () => {
+  it('Pesquisa de categoria', () => {
     cy.get('.input-group > .form-control').type('Assinatura');
     cy.get('tbody > tr > :nth-child(2)').should(
       'have.text',
@@ -68,7 +68,7 @@ describe('Edit Category - Success test cases', () => {
   });
 });
 
-describe('Edit Category - Fail test cases', () => {
+describe('Editar categorias - Validação de campos', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -81,7 +81,7 @@ describe('Edit Category - Fail test cases', () => {
     cy.get(':nth-child(8) > .nav-link').click();
   });
 
-  it('Should not allow to create a category while the input is not filled in', () => {
+  it('Validação de campos obrigatórios', () => {
     cy.get('.ml-auto > .btn').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
     cy.get('form-error > :nth-child(1) > div').should(

@@ -1,4 +1,4 @@
-describe('Budgets - Success test cases', () => {
+describe('Orçamentos - Casos de teste', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -11,7 +11,7 @@ describe('Budgets - Success test cases', () => {
     cy.get(':nth-child(9) > .nav-link').click();
   });
 
-  it('Should create a budget', () => {
+  it('Adição de um orçamento', () => {
     cy.get('.ml-auto > .d-flex > div > .btn').click();
     cy.get(':nth-child(3) > .col-12 > .form-control').type(
       'Caixa para pílulas'
@@ -28,7 +28,7 @@ describe('Budgets - Success test cases', () => {
     );
   });
 
-  it('Should edit a budget', () => {
+  it('Edição de um orçamento', () => {
     cy.get(':nth-child(5) > .d-flex > :nth-child(2) > .btn').click();
 
     cy.get(':nth-child(3) > .col-12 > .form-control')
@@ -46,7 +46,7 @@ describe('Budgets - Success test cases', () => {
     );
   });
 
-  it('Should search for a budget', () => {
+  it('Pesquisa por um orçamento', () => {
     cy.get('.form-control').type('Suporte para ampolas');
     cy.get('tbody > tr > :nth-child(1)').should(
       'have.text',
@@ -54,7 +54,7 @@ describe('Budgets - Success test cases', () => {
     );
   });
 
-  it('Should share a budget', () => {
+  it('Compartilhar um orçamento', () => {
     cy.get(':nth-child(3) > .btn').click();
     cy.get('.modal-footer > :nth-child(3) > .btn').click();
 
@@ -92,7 +92,7 @@ describe('Budgets - Success test cases', () => {
     cy.contains('div', 'Orçamento enviado com sucesso!').should('be.visible');
   });
 
-  it('Should delete a budget', () => {
+  it('Exclusão de um orçamento', () => {
     cy.get(':nth-child(5) > .d-flex > :nth-child(1) > .btn').click();
 
     cy.get('app-confirmation').should('be.visible');
@@ -108,7 +108,7 @@ describe('Budgets - Success test cases', () => {
   });
 });
 
-describe('Budgets - Fail test cases', () => {
+describe('Orçamentos - Validação de campos', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -121,7 +121,7 @@ describe('Budgets - Fail test cases', () => {
     cy.get(':nth-child(9) > .nav-link').click();
   });
 
-  it('Should not allow to create a budget while the required fields are not filled in', () => {
+  it('Validação de campos obrigatórios', () => {
     cy.get('.ml-auto > .d-flex > div > .btn').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
 

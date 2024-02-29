@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Summary - Success test cases ', () => {
+describe.only('Resumo - Casos de teste', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -12,7 +12,7 @@ describe('Summary - Success test cases ', () => {
     cy.get(':nth-child(11) > #TDD-menu-store').click();
   });
 
-  it('Should add a new income', () => {
+  it('Adição de uma receita', () => {
     cy.get(':nth-child(1) > .card > .card-body > .btn').click();
     cy.get('.input-group-text').click();
     cy.get('.ngb-dp-today > .btn-light').click();
@@ -45,7 +45,16 @@ describe('Summary - Success test cases ', () => {
     cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
   });
 
-  it('Should validate the income card value', () => {
+  it('Edição de uma receita', () => {
+    cy.get('.positive > .d-flex > :nth-child(3)').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Retorno')
+      .type('{enter}');
+    cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+    cy.contains('div', 'Receita salva com sucesso!').should('be.visible');
+  });
+
+  it('Validação dos valores do card de receitas', () => {
     cy.get(':nth-child(1) > .card > .card-body > h2.card-title').should(
       'have.text',
       'Receitas do Mês'
@@ -56,7 +65,7 @@ describe('Summary - Success test cases ', () => {
     );
   });
 
-  it('Should delete an income', () => {
+  it('Exclusão de uma receita', () => {
     cy.get(':nth-child(2) > .positive > .d-flex > .flex-grow-1')
       .should('have.text', ' R$ 50,00 ')
       .click();
@@ -66,7 +75,7 @@ describe('Summary - Success test cases ', () => {
     ).click();
   });
 
-  it('Should add a new outcome', () => {
+  it('Adição de uma despesa', () => {
     cy.get(':nth-child(2) > .card > .card-body > .btn').click();
     cy.get('.input-group-text').click();
     cy.get('.ngb-dp-today > .btn-light').click();
@@ -97,7 +106,16 @@ describe('Summary - Success test cases ', () => {
     cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
   });
 
-  it('Should validate the outcome card value', () => {
+  it('Edição de uma despesa', () => {
+    cy.get('.negative > .d-flex > :nth-child(3)').click();
+    cy.get(':nth-child(7) > easy-typeahead > #typeahead-focus')
+      .type('Retorno')
+      .type('{enter}');
+    cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click().wait(1000);
+    cy.contains('div', 'Despesa salva com sucesso!').should('be.visible');
+  });
+
+  it('Validação dos valores do card de despesas', () => {
     cy.get(':nth-child(2) > .card > .card-body > h2.card-title').should(
       'have.text',
       'Despesas do Mês'
@@ -108,7 +126,7 @@ describe('Summary - Success test cases ', () => {
     );
   });
 
-  it("Should switch the cards view mode from 'Month' to 'Year'", () => {
+  it("Troca do modo de visão dos cars de 'Mês' para 'Ano'", () => {
     cy.get('[for="opt2"]').click();
     cy.get(':nth-child(1) > .card > .card-body > h2.card-title').should(
       'have.text',
@@ -120,7 +138,7 @@ describe('Summary - Success test cases ', () => {
     );
   });
 
-  it('Should delete an outcome', () => {
+  it('Exclusão de uma despesa', () => {
     cy.get(':nth-child(2) > .negative > .d-flex > .flex-grow-1')
       .should('have.text', ' R$ 50,00 ')
       .click();
@@ -130,26 +148,26 @@ describe('Summary - Success test cases ', () => {
     ).click();
   });
 
-  it('Should edit/clear a goal', () => {
+  it('Edição/Exclusão de uma meta', () => {
     cy.get('.justify-content-between > :nth-child(2) > .btn').click();
     cy.get('#valueMonth').clear();
     cy.get('#valueYear').clear();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
   });
 
-  it('Should create a goal', () => {
+  it('Criação de uma meta', () => {
     cy.get('.progress-text').click();
     cy.get('#valueMonth').clear().type('100000');
     cy.get('#valueYear').clear().type('1200000');
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
   });
 
-  it('Should enable all options on the graphic', () => {
+  it('Ativação de todas as opções do gráfico', () => {
     cy.get('#expense').click();
     cy.get('#incoming').click();
   });
 
-  it('Should open the print preview of the financial information', () => {
+  it('Validação do preview da impressão', () => {
     cy.get(
       'app-sub-header-actions-financial > .d-flex > div > .btn-outline-primary'
     ).click();
@@ -160,7 +178,7 @@ describe('Summary - Success test cases ', () => {
   });
 });
 
-describe('Summary - Fail test cases ', () => {
+describe('Resumo - Validação de campos', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -172,7 +190,7 @@ describe('Summary - Fail test cases ', () => {
     cy.get(':nth-child(11) > #TDD-menu-store').click();
   });
 
-  it("Should not allow to create a new income while the required fields aren't filled in", () => {
+  it('Validação de campos obrigatórios', () => {
     cy.get('.d-flex > div > .btn-primary').click();
     cy.get('.modal-footer > :nth-child(2) > .btn').click();
     cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();

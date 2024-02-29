@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Receipts: Generate receipts - Success test cases', () => {
+describe('Recibos: Geração de recibos - Casos de teste', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -14,7 +14,7 @@ describe('Receipts: Generate receipts - Success test cases', () => {
     cy.get(':nth-child(11) > .d-flex > .nav-link').click();
   });
 
-  it('Should generate a receipt', () => {
+  it('Geração de um recibo', () => {
     cy.get('#typeahead-focus').type('Pedro Nieto');
     cy.get(':nth-child(5) > .input-group > .form-control').type(
       'Suporte para ampolas'
@@ -32,7 +32,7 @@ describe('Receipts: Generate receipts - Success test cases', () => {
   });
 });
 
-describe('Receipts: Generate receipts - Fail test cases', () => {
+describe('Recibos: Geração de recibos - Validação de campos', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -46,7 +46,7 @@ describe('Receipts: Generate receipts - Fail test cases', () => {
     cy.get(':nth-child(11) > .d-flex > .nav-link').click();
   });
 
-  it('Should not allow a receipt to be generated whiel the required fields are not filled in', () => {
+  it('Validação de campos obrigatórios', () => {
     cy.get(':nth-child(5) > .input-group > .form-control').click();
     cy.get('#receivedValue').click();
     cy.get(':nth-child(3) > .input-group > .form-control').click();
@@ -78,7 +78,7 @@ describe('Receipts: Generate receipts - Fail test cases', () => {
   });
 });
 
-describe('Receipts: History', () => {
+describe('Recibos: Histórico', () => {
   const loginData = {
     email: 'pedronieto.2005+23@gmail.com',
     password: 'Abc123456',
@@ -92,7 +92,7 @@ describe('Receipts: History', () => {
     cy.get(':nth-child(12) > .d-flex > .nav-link').click();
   });
 
-  it('Should create a receipt', () => {
+  it('Geração de um recibo', () => {
     cy.get(':nth-child(10) > .nav-link').click();
     cy.get(':nth-child(11) > .d-flex > .nav-link').click();
 
@@ -112,11 +112,11 @@ describe('Receipts: History', () => {
     cy.get(':nth-child(2) > .d-flex > .btn').click();
   });
 
-  it('Should visualize the receipt', () => {
+  it('Visualização de um recibo', () => {
     cy.get(':nth-child(6) > .d-flex > :nth-child(2) > .btn').click();
   });
 
-  it('Should order and search a receipt', () => {
+  it('Ordenação e pesquisa por um recibo', () => {
     cy.get('.ng-select-container').click();
     cy.get('.ng-select-container').type('Valor').type('{enter}');
     cy.get('.input-group > .form-control').type('Pedro Nieto');
@@ -126,7 +126,7 @@ describe('Receipts: History', () => {
     );
   });
 
-  it('Should filter the receipt time period', () => {
+  it('Filtrar os recibos por data', () => {
     cy.get(
       ':nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(1) > .form-control'
     ).click();
@@ -138,7 +138,7 @@ describe('Receipts: History', () => {
     ).click();
   });
 
-  it('Should delete the receipt', () => {
+  it('Exclusão de um recibo', () => {
     cy.get('.d-flex > :nth-child(1) > .btn').click();
 
     cy.get('app-confirmation').should('be.visible');
