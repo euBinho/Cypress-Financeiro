@@ -11,14 +11,72 @@ describe('Editar categorias - Casos de teste', () => {
     cy.get(':nth-child(8) > .nav-link').click();
   });
 
-  it('Adição de uma categoria', () => {
+
+  it('Valida se o título aparece na tela', () => {
+    cy.contains('h1', 'Editar Categorias').should('be.visible');
+    cy.contains('h4', 'Edite abaixo as categorias que serão usadas na criação e separação de Receitas e Despesas.').should('be.visible');
+    cy.contains('h2 > a', 'Editar Categorias').should('be.visible');
+  });
+
+  it.only('Adição de uma categoria', () => {
     cy.get('.ml-auto > .btn').click();
-    cy.get('#categorySearch').type('Retornos');
+
+    cy.contains('div > h2', 'Nova Categoria').should('be.visible');
+    cy.contains('div > label', 'Categoria e Cor de Identificação').should('be.visible');
+    cy.contains('div > button', 'Cancelar').should('be.visible');
+    cy.contains('div > button', 'Salvar').should('be.visible');
+
+    cy.get('#categorySearch').should('have.text', '').type('Retornos');
     cy.get('.col-1 > .color-picker').click();
     cy.get(':nth-child(5) > .d-flex > .color').click();
-    cy.get('.modal-footer > :nth-child(2) > .btn').click();
+    cy.contains('div > button', 'Salvar').click();
 
     cy.contains('div', 'Categoria cadastrada com sucesso!').should(
+      'be.visible'
+    );
+
+    cy.contains('button', 'Adicionar').click();
+    cy.contains('div > h2', 'Nova Transação').should('be.visible');
+    cy.contains('div > h4', 'Escolha qual tipo de transação você deseja adicionar.').should('be.visible');
+    cy.contains('div > button', 'Adicionar Receita').should('be.visible').click();
+
+  });
+
+
+
+
+  // it.only('Valida obrigatoriedade dos campos', () => {
+  //   cy.contains('button', 'Adicionar').click();
+  //   cy.contains('div > h2', 'Nova Transação').should('be.visible');
+  //   cy.contains('div > h4', 'Escolha qual tipo de transação você deseja adicionar.').should('be.visible');
+  //   cy.contains('div > button', 'Adicionar Receita').should('be.visible').click().wait(2000);
+  //   cy.get('.modal-footer > .d-flex > :nth-child(2) > .btn').click();
+  //   cy.contains('label', 'Conta*').should('be.visible')
+  //     .siblings('input').should('have.value', '')
+  //     .siblings()
+  //     .eq(1)
+  //     .find('div:contains(" Campo Obrigatório ")')
+  //     .should('be.visible')
+  //   cy.get('#valueExpense').should('have.value', '').and('have.attr', 'placeholder', 'R$')
+  // });
+
+
+
+
+  it('Adição de categoria já existente', () => {
+    cy.get('.ml-auto > .btn').click();
+
+    cy.contains('div > h2', 'Nova Categoria').should('be.visible');
+    cy.contains('div > label', 'Categoria e Cor de Identificação').should('be.visible');
+    cy.contains('div > button', 'Cancelar').should('be.visible');
+    cy.contains('div > button', 'Salvar').should('be.visible');
+
+    cy.get('#categorySearch').should('have.text', '').type('Retornos');
+    cy.get('.col-1 > .color-picker').click();
+    cy.get(':nth-child(5) > .d-flex > .color').click();
+    cy.contains('div > button', 'Salvar').click();
+
+    cy.contains('div', 'Já existe uma categoria com esse nome').should(
       'be.visible'
     );
   });

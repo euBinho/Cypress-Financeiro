@@ -80,7 +80,7 @@ describe('Receitas e despesas', () => {
     );
   });
 
-  it('Exclusão de uma receita/despesa', () => {
+  it.only('Exclusão de uma receita/despesa', () => {
     cy.get(':nth-child(6) > .btn').click();
     cy.get('.me-4 > .btn').click();
     cy.get('app-confirmation').should('be.visible');

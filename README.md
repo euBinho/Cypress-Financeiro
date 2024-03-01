@@ -2,3 +2,7 @@
 
 - Usar mais o "contains"
 - Dar get pelas tags
+
+---
+Validar integração completa
+Financeiro é grande, validar tudo

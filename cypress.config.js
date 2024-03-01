@@ -7,6 +7,7 @@ module.exports = defineConfig({
   videoCompression: true,
   e2e: {
     baseUrl: 'http://develop.easy-test',
+    // baseUrl: 'http://easy.local',
     setupNodeEvents(on, config) {
       on('task', {
         fileExists(filePath) {

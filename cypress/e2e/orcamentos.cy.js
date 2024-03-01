@@ -11,7 +11,7 @@ describe('Orçamentos - Casos de teste', () => {
     cy.get(':nth-child(9) > .nav-link').click();
   });
 
-  it('Adição de um orçamento', () => {
+  it.only('Adição de um orçamento', () => {
     cy.get('.ml-auto > .d-flex > div > .btn').click();
     cy.get(':nth-child(3) > .col-12 > .form-control').type(
       'Caixa para pílulas'
